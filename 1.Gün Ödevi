@@ -1,0 +1,31 @@
+#1.Gün Ödevi
+
+# String (str): Metinsel ifadeleri barındıran verilerdir.
+# İnteger (int):Tamsayı değerlerini tutan veri tipidir.
+# Float :Ondalıklı sayıları barındıran veri türüdür.
+# Range :Range'nin aldığı değerler sınır kabul edilir.İçersinde barındırdığı değer proğramın sınırıdır.
+# Bool(Boolean) :Mantıksal veri türü olup doğru yada yanlış gibi iki değerden birini alır.
+# List : Listelerin saklandığı veri tipleridir.
+
+
+
+# Kodlama.io sitesindeki Kategori ve Eğitmen bölümleri string ifadeye,
+# Eğitmen altındaki Halit Enes Kalayci ve Engin Demiroğ liste veri tipine,
+# Tamamlandı yazısının yanındaki % 100 ifadesi integer veri tipine,
+# "Önceki derse geç" , "sonraki derse geç" kısmı ise bool'a örnektir.
+
+
+
+# kullanıciAdi="keziban"
+# sifre="3232"
+
+# kullanıcıAdi =input("kullanıciAdi:")
+# sifre =input("sifre:")
+
+# if (kullanıciAdi==inputkullanıciAdi) and ("şifre==inputsifre")
+# print("Giriş başarılı")
+
+#else
+#pirint("Kullanıcı adı yada şifre yanlış.")
+
+
