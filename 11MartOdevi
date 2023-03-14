@@ -1,0 +1,50 @@
+# Öğrenci Kayıt Sistemi
+
+# Sistemimizdeki öğrencileri bir listede sadece ad soyad olacak şekilde tutalım.
+# Bu öğrenci kayıt sistemine:
+
+# 1) Aldığı isim soyad ile listeye öğrenci ekleyen,
+# 2) Aldığı isim soyad ile eşleşen değeri listeden kaldıran,
+# 3) Listeye birden fazla öğrenci eklemeyi mümkün kılan,
+# 4) listedeki tüm öğrencileri tek tek ekrana yazdıran,
+# 5) Öğrencinin listedeki index numarası öğrenci numarası olarak kabul edildiğini düşünerek öğrencinin
+#    numarasını öğrenmeyi mümkün kılan (döngü kullanınız.) fonksiyonları geliştiriniz ve her bir fonksiyonu
+#    en az bir kere çağırarak konsolda test ediniz.
+
+#      Ödevde kullanacağınız döngülerin bir tanesi for bir tanesi while döngüsü olması istenmektedir.
+
+
+kayıt=["Ayşe Konak","Betül Yıldız","Onur Akçay"]
+
+kayıt.append("Kemal Akın")
+print(kayıt)
+
+kayıt.remove("Betül Yıldız")
+print(kayıt)
+
+kayıt.extend(["Keziban Sökmen","Aysel Ölçer","Aysun Özçelik"])
+print(kayıt)
+
+kayıt =["Ayşe Konak","Onur Akçay","Kemal Akın","Keziban Sökmen","Aysel Ölçer","Aysun Özçelik"]
+
+for i in kayıt :
+    print(i)
+
+i=0
+while i< len(kayıt):
+    print(str(i)+" "  +"No'lu kayıt"+" "+kayıt[i])
+    i+=1
+    #***************
+
+for i in range(len(kayıt)-1,-1,-1):
+    print(str(i)+" "+"No'lu kayıt"+" "+kayıt[i]+" "+"listeden silindi.")
+    
+
+
+
+
+
+
+
+
+
