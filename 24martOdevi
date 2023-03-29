@@ -1,0 +1,94 @@
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager 
+from time import sleep
+from selenium .webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait         
+from selenium.webdriver.support import expected_conditions as ec  
+from selenium.webdriver.common.action_chains import ActionChains 
+import pytest
+from pathlib import Path
+from datetime import date                                         
+
+
+class Test_DemoClass:
+
+    def setup_method(self):   
+       self.driver=webdriver.Chrome(ChromeDriverManager().install())
+       self.driver.maximize_window()
+       self.driver.get("https://www.saucedemo.com/")
+       self.folderPath=str(date.today())                
+       Path(self.folderPath).mkdir(exist_ok=True)       
+    def teardown_method(self): 
+        self.driver.quit()
+
+    @pytest.mark.parametrize("username,password",[("Keziban","144"),("Keziban","Sokmen"),("123","Keziban")])
+    def test_invalid_login(self,username,password):
+        self.waitForElementVisible((By.ID,"user-name"))
+        usernameInput=self.driver.find_element(By.ID,"user-name")
+        self.waitForElementVisible((By.ID,"password"))       
+        passwordInput=self.driver.find_element(By.ID,"password") 
+        usernameInput.send_keys(username)
+        passwordInput.send_keys(password)      
+        loginBtn=self.driver.find_element(By.ID,"login-button")
+        loginBtn.click()
+        errorMessageClose=self.driver.find_element(By.XPATH,"/html/body/div/div/div[2]/div[1]/div/div/form/div[3]/h3")
+        self.driver.save_screenshot(f"{self.folderPath}/test_invalid_login.png")
+        assert errorMessageClose.text=="Epic sadface: Username and password do not match any user in this service"
+
+    def waitForElementVisible(self,locator,timeout=5):
+        WebDriverWait(self.driver,timeout).until(ec.visibility_of_element_located(locator))   
+                     
+    def test_password_required(self):
+
+        self.waitForElementVisible((By.ID,"user-name"))       
+        usernameInput=self.driver.find_element(By.ID,"user-name")
+        self.waitForElementVisible((By.ID,"password"))
+        passwordInput=self.driver.find_element(By.ID,"password") 
+        actions=ActionChains(self.driver)
+        actions.send_keys_to_element(usernameInput, "Keziban")
+        actions.send_keys_to_element(passwordInput, "")
+        actions.perform()                          
+        loginBtn=self.driver.find_element(By.ID,"login-button")
+        loginBtn.click()        
+        usernameInput.clear()
+        errorMessageClose=self.driver.find_element(By.XPATH,"/html/body/div/div/div[2]/div[1]/div/div/form/div[3]")
+        self.driver.save_screenshot(f"{self.folderPath}/test_password_required.png")
+        assert errorMessageClose.text=="Epic sadface: Password is required"
+
+    def test_user_locked(self,): 
+
+        self.waitForElementVisible((By.ID,"user-name"))       
+        usernameInput=self.driver.find_element(By.ID,"user-name")
+        self.waitForElementVisible((By.ID,"password"))  
+        passwordInput=self.driver.find_element(By.ID,"password")
+        actions=ActionChains(self.driver) 
+        actions.send_keys_to_element(usernameInput,"locked_out_user")
+        actions.send_keys_to_element(passwordInput,"secret_sauce")
+        actions.perform()                                         
+        loginBtn=self.driver.find_element(By.ID,"login-button")
+        loginBtn.click()
+        errorMessageClose=self.driver.find_element(By.XPATH,"/html/body/div/div/div[2]/div[1]/div/div/form/div[3]/h3")
+        self.driver.save_screenshot(f"{self.folderPath}/test_user_locked.png")
+        assert errorMessageClose.text=="Epic sadface: Sorry, this user has been locked out."
+       
+    def test_red_icon(self):
+
+        self.waitForElementVisible((By.ID,"user-name")) 
+        usernameInput=self.driver.find_element(By.ID,"user-name")
+        self.waitForElementVisible((By.ID,"password"))   
+        passwordInput=self.driver.find_element(By.ID,"password")
+        actions=ActionChains(self.driver) 
+        actions.send_keys_to_element(usernameInput, " ")
+        actions.send_keys_to_element(passwordInput," ")
+        actions.perform()                                             
+        loginBtn=self.driver.find_element(By.ID,"login-button")
+        loginBtn.click()
+        red_X =self.driver.find_element(By.XPATH,"//*[@id='login_button_container']/div/form/div[3]")
+        self.driver.save_screenshot(f"{self.folderPath}/test_red_ico.png")
+        red_X.click()        
+    
+       
+       
+       
+       
+               
